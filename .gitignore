@@ -7,3 +7,8 @@
 *.cmx
 *.cmxs
 *.cmxa
+.vagrant
+src/_build
+src/setup.log
+src/setup.data
+src/main.ml
