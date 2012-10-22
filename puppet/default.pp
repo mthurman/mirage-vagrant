@@ -1,7 +1,13 @@
 Exec {path => '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:~/bin'}
 
 class mirage-deps {
-  $AMAZON_CERT_NAME = "Fill this in from cert-XXXX.pem and pk-XXXX.pem"
+  $amazon_cert_name = "HJPQTUP5HACKEDCFJN2B5JCABCVOP4LY"
+
+  exec { "apt-get update":
+      command => "/usr/bin/apt-get update",
+      onlyif => "/bin/sh -c '[ ! -f /var/cache/apt/pkgcache.bin ] || /usr/bin/find /etc/apt/* -cnewer /var/cache/apt/pkgcache.bin | /bin/grep . > /dev/null'",
+  }
+
   package { [
     "build-essential",
     "ocaml",
@@ -16,6 +22,7 @@ class mirage-deps {
     "vim"
   ]:
     ensure => present,
+    require => Exec['apt-get update'],
   }
 
   file {
@@ -38,15 +45,15 @@ class mirage-deps {
   }
 
   file { 'amazon cert':
-    path => '/home/vagrant/code/ec2/cert-${AMAZON_CERT_NAME}.pem',
-    source => '/vagrant/puppet/cert-${AMAZON_CERT_NAME}.pem',
+    path => "/home/vagrant/code/ec2/cert-${amazon_cert_name}.pem",
+    source => "/vagrant/puppet/cert-${amazon_cert_name}.pem",
     owner => 'vagrant',
     group => 'vagrant'
   }
 
   file { 'amazon priv key':
-    path => '/home/vagrant/code/ec2/pk-${AMAZON_CERT_NAME}.pem',
-    source => '/vagrant/puppet/pk-${AMAZON_CERT_NAME}.pem',
+    path => "/home/vagrant/code/ec2/pk-${amazon_cert_name}.pem",
+    source => "/vagrant/puppet/pk-${amazon_cert_name}.pem",
     owner => 'vagrant',
     group => 'vagrant'
   }

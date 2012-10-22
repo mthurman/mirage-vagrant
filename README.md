@@ -8,16 +8,15 @@ Getting started
 1. Fork this repo
 2. Install VirtualBox
 3. Install Vagrant
-4. Run vagrant box add precise64 http://files.vagrantup.com/precise64.box
-5. Generate and download an X509 certificate from AWS. Put them in the puppet folder.
-6. Edit puppet/default.pp and change AMAZON_CERT_NAME to match the common part of the filename for the key/certificate you downloaded
-7. Fill in all your EC2 access information in puppet/setup.sh
-8. Run vagrant up
-9. Run vagrant ssh
-10. In your vm, cd /vagrant
-11. Run puppet/setup.sh. Wait. Drink some coffee.
-12. Run make && make run
-13. Visit localhost:8080 on the host machine--you should see "test" as the response
+4. Generate and download an X509 certificate from AWS. Put them in the puppet folder.
+5. Edit puppet/default.pp and change AMAZON_CERT_NAME to match the common part of the filename for the key/certificate you downloaded
+6. Fill in all your EC2 access information in puppet/setup.sh
+7. Run vagrant up
+8. Run vagrant ssh
+9. In your vm, cd /vagrant
+10. Run puppet/setup.sh. Wait. Drink some coffee.
+11. Run make && make run
+12. Visit localhost:8080 on the host machine--you should see "test" as the response
 
 Deploy to Amazon
 ----------------
