@@ -1,0 +1,35 @@
+OASISFormat: 0.3
+Name:        mirage-vagrant
+Version:     0.0.1
+Synopsis:    Get started with Mirage using Vagrant (heavily inspired by mirage-www)
+Authors:     Anil Madhavapeddy, Thomas Gazagnaire (with modifications by Mark Thurman)
+BuildTools:  ocamlbuild
+PostConfCommand: ./gen_main.sh
+PostDistCleanCommand: $rm main.ml
+
+Flag unix
+  Description: build UNIX binary
+  Default: false
+
+Flag xen
+  Description: build Xen kernel
+  Default: false
+  
+Executable "mirage-www.unix"
+  Path:               .
+  MainIs:             main.ml
+  Build$:             flag(unix)
+  Custom:             true
+  CompiledObject:     native
+  Install:            false
+  BuildDepends:       mirage, cohttp.mirage, uri, re, cow
+
+Executable "mirage-www.xen"
+  Path:               .
+  MainIs:             main.ml
+  Build$:             flag(xen)
+  Custom:             true
+  CompiledObject:     native
+  Target:             xen
+  Install:            false
+  BuildDepends:       mirage, cohttp.mirage, uri, re, cow
